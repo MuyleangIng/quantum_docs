@@ -1,0 +1,41 @@
+---
+title: "Probabilistic Error Cancellation"
+description: "Model noise channels and statistically cancel them using quasi-probability sampling."
+---
+
+# Probabilistic Error Cancellation (PEC)
+
+After modeling the noise channel (how errors are introduced), the circuit is modified so that the noise can be statistically canceled. The modified circuits are executed repeatedly and averaged to estimate the ideal (noise-free) expectation value.
+
+---
+
+## Stages of PEC
+
+PEC consists of four stages:
+
+1. **Noise characterization**  
+   Experimentally estimate the noise associated with each gate/channel.
+
+2. **Quasi-probability decomposition configuration**  
+   Approximate an ideal gate as a linear combination of noisy gates.
+
+<div align="center">
+  <img src="/images/errors/pec-decomposition.png" width="300" />
+</div>
+
+> **Reference**: Ewout van den Berg (2023)
+
+3. **Random sampling**  
+   For each run, sample a circuit modification according to the decomposition and execute it.
+
+<div align="center">
+  <img src="/images/errors/pec-sampling.png" width="780" />
+</div>
+
+4. **Recovering expectation value**  
+   Multiply each run’s outcome by the corresponding weight and average to obtain a mitigated expectation value.
+
+<div align="center">
+  <img src="/images/errors/pec-recovery.png" width="780" />
+</div>
+

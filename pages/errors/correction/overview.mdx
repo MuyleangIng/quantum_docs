@@ -1,0 +1,19 @@
+---
+title: "Quantum Error Correction"
+description: "Encode logical information into many physical qubits to detect and correct errors."
+---
+
+# Quantum Error Correction
+
+Quantum error correction is a technique that preserves the logical outcome of a computation even when errors occur.
+
+The core idea is to redundantly encode a single logical qubit into multiple physical qubits. While the computation proceeds, the system periodically measures **syndromes** that indicate traces of errors to infer what error occurred. Then it applies the corresponding correction operator to cancel the error’s impact.
+
+In the upcoming **FTQC era**, meaningful algorithms require very deep circuits and many operations. With NISQ-level error rates, errors accumulate and can easily cause the computation to fail, making quantum error correction essential.
+
+---
+
+## References
+
+- [Basis of QEC](https://www.notion.so/Basis-of-QEC-2fcca8260b24801bb305cd7cfb41fdc2?pvs=21)  
+- [Workflow of QEC code](https://www.notion.so/Workflow-of-QEC-code-2fcca8260b24802384dac831b86a611d?pvs=21)

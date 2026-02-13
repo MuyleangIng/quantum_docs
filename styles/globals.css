@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Sidebar Container */
+.nextra-sidebar-container {
+  @apply border-r-2 bg-gradient-to-b from-[#AFECEF99] to-white 
+         dark:from-[#0694A2]/20 dark:to-gray-900;
+  border-color: #0694A2;
+}
+
+/* Sidebar content wrapper */
+.nextra-sidebar {
+  @apply space-y-1;
+}
+
+/* Sidebar menu items */
+.nextra-sidebar li a {
+  @apply text-gray-700 dark:text-gray-300 
+         hover:text-[#0694A2] 
+         transition-all duration-200 
+         rounded-md px-3 py-2 block;
+}
+
+/* Active sidebar item */
+.nextra-sidebar li.active > a,
+.nextra-sidebar li a[aria-selected="true"] {
+  @apply bg-gradient-to-r from-[#AFECEF99] to-transparent
+         text-[#0694A2] 
+         font-semibold 
+         border-l-4 
+         shadow-sm;
+  border-color: #0694A2;
+}
+
+/* Sidebar folder/section headers */
+.nextra-sidebar .nextra-sidebar-menu > li > button {
+  @apply text-[#0694A2] 
+         font-bold 
+         transition-all duration-200 
+         px-3 py-2 rounded-md 
+         hover:bg-[#AFECEF99];
+}
+
+/* Section titles */
+.nextra-sidebar-menu button {
+  @apply text-[#0694A2] 
+         font-bold uppercase text-xs tracking-wider;
+}
+
+/* Left sidebar background */
+nav.nextra-sidebar-container aside,
+aside.nextra-sidebar-container {
+  @apply bg-gradient-to-br 
+         from-[#AFECEF99] 
+         via-white 
+         to-[#AFECEF99]
+         dark:from-[#0694A2]/20 
+         dark:via-gray-900;
+}
+
+/* Content list links */
+.nextra-sidebar nav a,
+.nextra-sidebar-menu a {
+  @apply relative overflow-hidden;
+}
+
+/* Hover effect */
+.nextra-sidebar nav a:hover,
+.nextra-sidebar-menu a:hover {
+  @apply bg-[#AFECEF99] shadow-sm;
+}
+
+/* Active content */
+.nextra-sidebar nav a[aria-current="page"],
+.nextra-sidebar-menu a[aria-current="page"] {
+  @apply bg-gradient-to-r 
+         from-[#AFECEF99] 
+         to-transparent 
+         text-[#0694A2] 
+         font-semibold 
+         border-l-4 pl-4;
+  border-color: #0694A2;
+}
+
+/* TOC Styling */
+.nextra-toc {
+  border-color: #0694A2;
+  @apply border-l-2;
+}
+
+/* TOC links */
+.nextra-toc li a {
+  @apply text-gray-600 dark:text-gray-400 
+         hover:text-[#0694A2] 
+         transition-colors;
+}
+
+/* Active TOC */
+.nextra-toc li a[aria-selected="true"],
+.nextra-toc li.active > a {
+  @apply text-[#0694A2] 
+         font-semibold 
+         border-l-4 -ml-0.5;
+  border-color: #0694A2;
+}
+
+/* TOC heading */
+.nextra-toc > p {
+  @apply text-[#0694A2] font-bold;
+}
+
+/* Scrollbar */
+.nextra-sidebar-container::-webkit-scrollbar-thumb {
+  background-color: #0694A2;
+  border-radius: 9999px;
+}
+
+/* Nested items */
+.nextra-sidebar ul ul li a {
+  border-left: 2px solid #AFECEF99;
+  @apply ml-2 pl-4;
+}
+
+.nextra-sidebar ul ul ul li a {
+  border-left: 2px solid #0694A2;
+  @apply ml-4 pl-4;
+}
+
+/* Expanded folder */
+.nextra-sidebar button[aria-expanded="true"] {
+  @apply text-[#0694A2] bg-[#AFECEF99];
+}
+
+/* Search input */
+.nextra-sidebar input[type="search"],
+.nextra-sidebar input[type="text"] {
+  border-color: #AFECEF99;
+}
+
+.nextra-sidebar input[type="search"]:focus,
+.nextra-sidebar input[type="text"]:focus {
+  border-color: #0694A2;
+  box-shadow: 0 0 0 1px #0694A2;
+}
+
+/* Footer */
+.nextra-sidebar-container > div:last-child {
+  border-top: 2px solid #AFECEF99;
+  background-color: #AFECEF99;
+}

@@ -1,0 +1,25 @@
+---
+title: "Dynamical Decoupling"
+description: "Insert refocusing pulse sequences to average out low-frequency noise and reduce decoherence."
+---
+
+# Dynamical Decoupling (DD)
+
+Dynamical decoupling mitigates decoherence by inserting carefully designed pulse sequences during idle periods. This helps slow noise contributions average out over time, reducing error accumulation **without** directly measuring or correcting the quantum state.
+
+---
+
+## Stages of DD
+
+DD consists of two stages:
+
+1. **Idle-window identification and pulse insertion**  
+   The circuit is analyzed to find idle intervals on qubits, and a DD sequence (e.g., CPMG, XY4, LDD, …) is inserted into those windows while preserving the intended logical computation.
+<div align="center">
+
+<img src="/images/errors/dd-sequences.png" width="600" />
+</div>
+> **Reference**: *Learning How to Dynamically Decouple* — Arefur Rahman (2024)
+
+2. **Noise averaging via refocusing**  
+   The inserted π-pulse pattern repeatedly flips the qubit state so that low-frequency phase noise and unwanted system–environment interactions acquire alternating signs and largely cancel in the time average. This yields improved coherence and more reliable expectation values.

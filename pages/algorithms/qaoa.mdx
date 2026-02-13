@@ -1,0 +1,101 @@
+---
+title: "QAOA"
+description: "Quantum Approximate Optimization Algorithm for combinatorial problems like Max-Cut."
+---
+
+# QAOA (Quantum Approximate Optimization Algorithm)
+
+## 1. Overview
+
+**QAOA** is a variational quantum algorithm designed to solve **combinatorial optimization problems**. It is specifically tailored for **NISQ (Noisy Intermediate-Scale Quantum)** devices, making it one of the most practical applications for near-term quantum hardware.
+
+> **Key Takeaway:** QAOA is essentially controlled quantum interference used to "sift" through possible solutions to find the best one.
+
+---
+
+## 2. How It Works
+
+QAOA uses a **layered quantum circuit** that alternates between two specific operations. By repeating these layers, the algorithm gradually "pushes" the probability toward the correct answer.
+
+
+
+* **Cost Layer ($U(H_C, \gamma)$):** Encodes the optimization problem. It marks "good" solutions by shifting their phase.
+* **Mixer Layer ($U(H_M, \beta)$):** Explores the solution space. It converts those phase differences into measurable probability amplitudes.
+
+---
+
+## 3. Use Cases
+
+QAOA is used for problems where checking every possible combination is classically expensive:
+
+* **Max-Cut:** Partitioning graphs (The "Party Problem").
+* **Logistics:** Routing and scheduling.
+* **Finance:** Portfolio optimization.
+* **Chemistry:** Molecular configuration (though VQE is often preferred here).
+
+---
+
+## 4. Study Case: Max-Cut (The "Party Problem")
+
+Imagine a group of people where some pairs dislike each other (represented by edges in a graph).
+
+**The Goal:** Split the people into two separate rooms such that the **maximum number of "dislike" edges** connect people in different rooms.
+
+### Simple 2-Node Example
+For two connected nodes, we have four possible assignments:
+
+| Bitstring | Relationship | Cut Value |
+| :--- | :--- | :--- |
+| `00` | Same room | 0 |
+| `11` | Same room | 0 |
+| `01` | **Different rooms** | **1 (Optimal)** |
+| `10` | **Different rooms** | **1 (Optimal)** |
+
+---
+
+## 5. The Algorithm Flow
+
+### Step 1: Convert Problem to Hamiltonian
+For a 2-node Max-Cut, we represent the cost as a Z-basis operator:
+$$H_C = \frac{1}{2}(I - Z_0 Z_1)$$
+
+### Step 2: Initialize Superposition
+We start by putting all qubits into an equal superposition using Hadamard ($H$) gates:
+$$|\psi_0\rangle = |+\rangle^{\otimes n}$$
+
+### Step 3: Apply the Layers
+We apply the cost and mixer operators $p$ times:
+$$|\gamma, \beta\rangle = e^{-i\beta_p H_M} e^{-i\gamma_p H_C} \dots e^{-i\beta_1 H_M} e^{-i\gamma_1 H_C} |\psi_0\rangle$$
+
+### Step 4: Classical Optimization
+A classical computer looks at the results, adjusts the parameters $\gamma$ (gamma) and $\beta$ (beta), and runs the circuit again to find the maximum expected value.
+
+---
+
+## 6. Practical Implementation (Qiskit)
+
+Here is a minimal implementation using the modern Qiskit Primitives.
+
+```python
+from qiskit.circuit.library import QAOAAnsatz
+from qiskit.quantum_info import SparsePauliOp
+from qiskit.primitives import StatevectorSampler
+
+# 1. Define the problem (Max-Cut on 2 nodes)
+operator = SparsePauliOp.from_list([("ZZ", 1.0)])
+
+# 2. Create the QAOA circuit
+ansatz = QAOAAnsatz(operator, reps=1)
+ansatz.measure_all()
+
+# 3. Assign parameters (gamma=1.0, beta=1.0)
+qc = ansatz.assign_parameters([1.0, 1.0])
+
+# 4. Run the simulation
+sampler = StatevectorSampler()
+job = sampler.run([qc], shots=1000)
+result = job.result()[0]
+
+# 5. Extract results
+counts = result.data.meas.get_counts()
+print(f"QAOA Results: {counts}")

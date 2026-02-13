@@ -1,0 +1,108 @@
+---
+title: "Zero-Noise Extrapolation"
+description: "Amplify noise and extrapolate expectation values to estimate the zero-noise limit."
+---
+
+# Zero-Noise Extrapolation
+
+Zero-Noise Extrapolation (ZNE) is a quantum error mitigation technique in which the same circuit is executed multiple times with **artificially amplified noise**. After observing how the result changes as a function of noise strength, the trend is used to extrapolate to the value at **zero noise**.
+
+ZNE consists of two main stages:
+
+1. **Noise amplification**  
+   The original quantum circuit is executed multiple times at different effective noise rates.
+
+2. **Extrapolation**  
+   The ideal result is estimated by extrapolating the noisy expectation values to the zero-noise limit.
+
+<img src="/images/errors/zne-overview.png" width="780" />
+
+> **Reference:** *Best practices for quantum error mitigation with digital zero-noise extrapolation* — Ritajit Majumdar (2023)
+
+---
+
+## Noise Amplification via Digital Gate Folding
+
+Both the noise amplification and extrapolation stages can be implemented in different ways. A common method for noise amplification is **digital gate folding**.
+
+Digital gate folding increases circuit depth while preserving the logical computation by inserting gate–inverse pairs.
+
+### Basic principle
+
+For a unitary gate **U**, we use the identity:
+
+U · U<sup>†</sup> = I
+
+Therefore, we can replace:
+
+U → U · U<sup>†</sup> · U
+
+This transformation:
+
+- Preserves the logical operation
+- Increases circuit depth
+- Amplifies the accumulated noise
+
+---
+
+## Global vs Local Gate Folding
+
+Two common folding strategies are used:
+
+### 1. Global Gate Folding
+
+The entire circuit C is treated as a single unitary:
+
+C → C · C<sup>†</sup> · C
+
+This amplifies noise uniformly across the full circuit.
+
+---
+
+### 2. Local Gate Folding
+
+Each individual gate is folded separately.
+
+If the original circuit contains:
+
+U₁, U₂, U₃
+
+After local folding, it becomes:
+
+U₁U₁<sup>†</sup>U₁  
+U₂U₂<sup>†</sup>U₂  
+U₃U₃<sup>†</sup>U₃  
+
+Local folding allows finer control over how noise is amplified.
+
+---
+
+<img src="/images/errors/zne-folding.png" width="780" />
+
+> **Reference:** *Best practices for quantum error mitigation with digital zero-noise extrapolation* — Ritajit Majumdar (2023)
+
+---
+
+## Why ZNE Works
+
+If the noisy expectation value can be modeled as a smooth function of noise scale λ:
+
+E(λ)
+
+Then by evaluating E(λ) at multiple noise levels (for example λ = 1, 2, 3), we can extrapolate to:
+
+E(0)
+
+which approximates the ideal noise-free expectation value.
+
+---
+
+## Summary
+
+Zero-Noise Extrapolation:
+
+- Does not require additional qubits  
+- Works within NISQ hardware constraints  
+- Trades increased circuit executions and post-processing cost for improved accuracy  
+
+It is therefore one of the most practical error mitigation techniques for near-term quantum devices.

@@ -1,0 +1,33 @@
+---
+title: "Introduction"
+description: "Why quantum computers are error-prone, and the two main approaches: mitigation vs correction."
+---
+
+# Introduction
+
+Quantum computers have the potential to demonstrate far more powerful computational capabilities than classical computers for certain problems, but they are inherently highly vulnerable to errors.
+
+Quantum states can be easily disrupted by even subtle interactions with the external environment (**decoherence**), and a wide variety of errors can arise due to imperfections in the measurement process, imperfect control signals, and hardware device characteristics. In particular, quantum computation involves many gate operations performed sequentially, allowing small errors to accumulate. The more the system relies on sensitive quantum effects such as **entanglement** and **interference**, the more easily it becomes unstable, significantly affecting the accuracy of results.
+
+For these reasons, a central challenge for today’s quantum computers is not performing quantum operations perfectly, but rather obtaining results that are reliable under realistic conditions where errors are present. Therefore, to run quantum algorithms on real hardware, it is essential to understand the causes and characteristics of errors and to develop strategies to reduce or control them.
+
+---
+
+## Two main approaches
+
+Representative approaches to dealing with errors can be broadly divided into two categories:
+
+1. **Quantum Error Mitigation (QEM)**  
+   Methods that accept imperfect hardware and improve result quality through post-processing or by refining the execution procedure.
+
+2. **Quantum Error Correction (QEC)**  
+   Methods that more fundamentally protect logical computation by using additional resources and procedures to detect and correct errors.
+
+In this chapter, we first summarize the goals and differences between these two approaches, and then introduce representative error mitigation techniques and error correction techniques in turn.
+
+---
+
+## References
+
+- [Quantum Error Mitigation](https://www.notion.so/Quantum-Error-Mitigation-2fcca8260b24800f9e27ff110f281136?pvs=21)  
+- [Quantum Error Correction](https://www.notion.so/Quantum-Error-Correction-2fcca8260b248027a3a3e7d58d4175d6?pvs=21)

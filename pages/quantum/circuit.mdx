@@ -1,0 +1,74 @@
+---
+title: "The Basics of the Quantum Circuit"
+description: "How to read quantum circuits: wires, operations, time flow, and measurement."
+---
+
+# The Basics of the Quantum Circuit
+
+Quantum computing relies on quantum phenomena such as **superposition**, **entanglement**, and **quantum interference** to perform computations. To use these phenomena in practice, quantum algorithms are described using a model called a **quantum circuit**.
+
+A **quantum circuit** provides a simple and visual way to represent how qubits are prepared, processed, and measured. At this stage, the goal is not to understand how every operation works, but to become familiar with **how a circuit is structured** and **how to read it**.
+
+## Main Elements of a Quantum Circuit
+
+Before looking at circuit diagrams in detail, it is helpful to understand the basic structure shared by all quantum circuits.
+
+Every quantum circuit consists of three main elements:
+
+1. **State Preparation** – initializing qubits, usually in the $|0⟩$ state
+2. **Quantum Operations (Gates)** – applying operations that change qubit states
+3. **Measurement** – converting quantum states into classical results
+
+In the following sections, we will see how each of these elements appears in a quantum circuit diagram.
+
+## What Is a Quantum Circuit?
+
+A quantum circuit is a diagram that shows the sequence of operations applied to qubits over time. It is read from **left to right**, where each step represents a moment in the computation.
+
+### In a quantum circuit
+
+- Each **horizontal line** represents a **single qubit** (called a *qubit wire*)
+- Symbols placed on the wires represent **operations** (quantum gates)
+- Measurements appear at the end of the circuit
+
+This visual representation allows us to describe quantum computations in a clear and organized way.
+
+## Qubit Wires
+
+Qubit wires represent how qubits exist and evolve throughout the computation.
+
+- Qubits usually begin in the $|0⟩$ state
+- The wire itself does not perform any operation
+- The wire simply shows how the qubit exists and evolves over time
+
+When multiple wires appear in a circuit, it means the computation involves **multiple qubits**.
+
+## Operations in a Quantum Circuit
+
+Operations are represented by symbols placed on the qubit wires.
+
+We will learn the details in the next section, so at this level it is enough to know that:
+
+- Operations **change the state of qubits**
+- Some operations act on one qubit
+- Some operations involve more than one qubit
+
+The internal behavior of these operations will be explained later through **quantum gates**.
+
+## Multiple Qubits in a Circuit
+
+When a circuit contains more than one qubit, operations can involve **relationships between qubits**.
+
+These interactions allow quantum systems to behave in ways that have no classical equivalent, such as creating strong correlations between qubits. For now, it is sufficient to recognize that multiple qubits can be connected within a single circuit.
+
+## Measurement
+
+Measurement is typically performed at the **end of a quantum circuit**.
+
+Measurement:
+
+- Converts quantum information into classical data
+- Produces a result of either 0 or 1
+- Ends the quantum computation
+
+After measurement, the quantum state is no longer available.

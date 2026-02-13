@@ -1,0 +1,162 @@
+---
+title: "Workflow of QEC Code"
+description: "Encoding, syndrome extraction, decoding, and correction in quantum error correction."
+---
+
+# Workflow of QEC Code
+
+In this section, we describe the full process of a QEC code, from encoding logical information to applying correction operators. We also introduce key concepts required at each step.
+
+Quantum Error Correction generally operates in the following sequence:
+
+---
+
+## 1. Encoding
+
+Encoding distributes and stores logical information across multiple physical qubits.
+
+There are several quantum error-correcting codes capable of storing logical information. The choice of code determines important trade-offs, including:
+
+- Physical-qubit overhead  
+- Achievable code distance  
+- Stabilizer weight  
+- Decoding complexity  
+- Availability of fault-tolerant logical gates  
+
+Different codes therefore have different advantages and limitations.
+
+<div align="center">
+  <img src="/images/errors/qec-encoding-circuit.png" width="650" />
+</div>
+
+> **Ref (encoding circuit : Quantum Error Correction - Joseph M. Renes 2024)**
+
+<div align="center">
+  <img src="/images/errors/qec-color-code.png" width="550" />
+</div>
+
+<div align="center">
+  <img src="/images/errors/qec-surface-code.png" width="550" />
+</div>
+
+<div align="center">
+  <img src="/images/errors/qec-qldpc.png" width="550" />
+</div>
+
+> **Ref (color code : Topological Quantum Distillation - H. Bombin 2006)**  
+> **Ref (surface code : Scalable extraction of error models from the output of error detection circuits - Austin G. Fowler 2014)**  
+> **Ref (qLDPC code : Flag-Proxy Networks: Overcoming the Architectural, Scheduling and Decoding Obstacles of Quantum LDPC Codes - Suhas Vittal 2024)**
+
+---
+
+## 2. Syndrome Extraction
+
+Syndrome extraction repeatedly measures stabilizers using ancilla (measurement) qubits so that:
+
+- Data qubits are not directly measured  
+- Encoded logical information is preserved  
+
+A **syndrome** is the collection of classical measurement outcomes (±1 or 0/1 bits) indicating whether each stabilizer/parity-check is satisfied. It reveals the presence and approximate location of errors without revealing the logical state itself.
+
+In practice, each stabilizer measurement follows a parity-check principle:
+
+- The ancilla is prepared in a known state  
+  - \(|0\rangle\) for Z-type parity  
+  - \(|+\rangle\) for X-type parity  
+
+- The ancilla is entangled with specific data qubits using controlled gates (e.g., CNOTs).
+
+- The ancilla accumulates the parity information.
+
+- The ancilla is measured to produce a syndrome bit.
+
+For example:
+
+- For a Z-type check, CNOTs from data qubits (control) to ancilla (target) map the Z-parity onto the ancilla measurement.
+
+- For an X-type check, the same idea is applied in the X basis (often using Hadamard gates before and after CNOTs).
+
+Repeating stabilizer measurements over multiple cycles allows the decoder to track changes in syndrome bits over time and distinguish data errors from measurement noise.
+
+<div align="center">
+  <img src="/images/errors/qec-syndrome-circuit.png" width="700" />
+</div>
+
+> **Ref (decoding circuit : Quantum Error Correction - Joseph M. Renes 2024)**
+
+---
+
+## 3. Decoding
+
+Decoding infers the most likely set of errors from the observed syndromes.
+
+Using the parity-check structure of the code, syndrome patterns are mapped to candidate error configurations. The decoder selects the configuration that is most probable under an assumed noise model.
+
+Common decoding algorithms include:
+
+### MWPM (Minimum-Weight Perfect Matching)
+
+MWPM treats detection events (changes in syndrome bits across space–time) as nodes in a graph.
+
+- Nodes are connected with weighted edges representing likely error chains.
+- The algorithm finds the minimum-total-weight matching.
+- This predicts the most likely error paths and their locations.
+
+---
+
+### Union-Find (UF) Decoder
+
+The Union-Find decoder uses a clustering approach:
+
+- Clusters grow around syndrome defects.
+- Clusters merge until defects are neutralized.
+- It approximates MWPM logic but runs in near-linear time.
+
+---
+
+### Belief Propagation (BP)
+
+BP operates on the Tanner graph of the parity-check matrix.
+
+- Messages are passed between variable nodes (qubits) and check nodes (stabilizers).
+- Marginal probabilities for error types are estimated.
+- The most likely per-qubit error pattern is selected.
+
+---
+
+### Neural-Network (NN) Decoders
+
+Neural-network decoders learn the syndrome-to-correction mapping from data.
+
+Given training samples of (syndrome, true error) pairs, the trained model outputs:
+
+- A correction operator, or  
+- Per-qubit error probabilities  
+
+They can capture correlated noise effects such as:
+
+- Biased noise  
+- Crosstalk  
+- Measurement faults  
+
+---
+
+## 4. Correction
+
+Once the decoder infers the most likely error configuration, a correction operator is applied.
+
+This operator reverses the inferred errors and restores the logical state.
+
+---
+
+## Surface Code QEC Workflow
+
+The figure below illustrates the complete QEC workflow using the surface code:
+
+<div align="center">
+  <img src="/images/errors/qec-surface-workflow.png" width="780" />
+</div>
+
+> **Ref (Real-time decoding for fault-tolerant quantum computing: progress, challenges and outlook - 10.1088/2399-1984/aceba6)**
+
+---

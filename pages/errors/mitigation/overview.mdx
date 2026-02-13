@@ -1,0 +1,34 @@
+---
+title: "Quantum Error Mitigation"
+description: "Noise-aware techniques for improving results on NISQ devices without full logical encoding."
+---
+
+# Quantum Error Mitigation
+
+Quantum error mitigation, as its name suggests, is a method for obtaining more plausible results by correcting expectation values (recovering estimates) from execution outcomes contaminated by errors, or by statistically removing error components.
+
+Unlike quantum error correction, which constructs codes using additional qubits to detect and correct errors, error mitigation aims to achieve a practically attainable level of accuracy improvement under the constraints of current **NISQ hardware** (short coherence times, high gate and measurement error rates, and limited numbers of qubits).
+
+Most error mitigation techniques have the following characteristics:
+
+- They require little to no additional physical qubits (or only very limited extra qubits).
+- Instead, they increase the number of shots, the number of circuit executions, and the cost of post-processing.
+- To improve mitigation results, the noise model should not vary significantly, or the calibration required for correction must be reliable.
+
+---
+
+## Techniques covered in this section
+
+This section treats three representative quantum error mitigation techniques:
+
+- [Zero-Noise Extrapolation (ZNE)](./zne)
+- [Probabilistic Error Cancellation (PEC)](./pec)
+- [Dynamical Decoupling (DD)](./dd)
+
+---
+
+## References
+
+- [Zero-Noise Extrapolation](https://www.notion.so/Zero-Noise-Extrapolation-2fcca8260b2480cb8ad8d11d18a97fb1?pvs=21)  
+- [Probabilistic Error Cancellation](https://www.notion.so/Probabilistic-Error-Cancellation-2fcca8260b2480a9a3d2d5d6f318937d?pvs=21)  
+- [Dynamical Decoupling](https://www.notion.so/Dynamical-Decoupling-2fcca8260b248065a82adcc3278a21b2?pvs=21)

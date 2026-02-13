@@ -1,0 +1,87 @@
+---
+title: "Overview of QML"
+description: "Architectural design, challenges, and core research directions in QML."
+---
+
+# Overview of QML
+
+### Content
+
+- Architectural Design of QML  
+- Challenges of QML  
+- Core Research Direction  
+
+---
+
+**Quantum Machine Learning (QML)** is an emerging research field at the intersection of quantum computing and machine learning. It focuses on the feasibility and practicality of integrating quantum computation into conventional machine learning workflows to enhance specific stages of learning.
+
+<img 
+  src="/images/qml/qml.png" 
+  alt="QML overview diagram" 
+  width="700" 
+/>
+
+Instead of replacing classical learning systems, QML introduces quantum circuits as computational modules within **hybrid quantum–classical architectures**, reflecting both the strengths of modern machine learning (including deep learning) and the practical constraints of current quantum hardware.
+
+In simple terms, classical components retain responsibility for general-purpose computation and orchestration, while quantum circuits are employed for specialized forms of information processing. Although quantum computation may provide speedups in certain configurations, QML also leverages quantum circuits for alternative forms of information processing, including high-dimensional quantum state representations that are not easily replicated classically under current hardware constraints.
+
+---
+
+## Architectural Design of QML
+
+Classical machine learning encompasses **supervised learning**, **unsupervised learning**, and **reinforcement learning**, with **deep learning (DL)** forming a prominent subset of these approaches.
+
+- **Supervised learning:** learn from labeled data (classification/regression)  
+- **Unsupervised learning:** discover structure from unlabeled data (clustering/dimensionality reduction)  
+- **Reinforcement learning:** learn policies through interaction and reward  
+
+<img 
+  src="/images/qml/ml.png" 
+  alt="Classical ML paradigms" 
+  width="700" 
+/>
+
+The architecture of QML is not restricted to any specific learning paradigm or model type. QML architectures remain flexible and adaptable, provided that data flow between classical and quantum components is well defined and the optimization procedure is properly specified.
+
+A typical QML workflow consists of a tightly coupled interaction between classical and quantum components. Classical systems handle preprocessing, feature extraction, post-processing, and optimization, while quantum systems process encoded data through parameterized quantum circuits. Measurement outcomes are returned to the classical domain, enabling iterative training and evaluation within a unified learning loop.
+
+<img 
+  src="/images/qml/qml-workflow.png" 
+  alt="Hybrid QML workflow" 
+  width="700" 
+/>
+
+---
+
+## Challenges of QML
+
+In contrast to classical machine learning, QML introduces quantum components into otherwise classical learning pipelines. This integration is fundamentally constrained by limitations of current quantum hardware in the **Noisy Intermediate-Scale Quantum (NISQ)** era.
+
+Present-day devices are affected by:
+
+- Noise and gate errors  
+- Limited qubit availability  
+- Restricted coherence time  
+- Limited circuit depth  
+
+These limitations can lead to unstable computations, especially when circuits become deeper or involve more qubits. In practice, such instability may prevent effective training or cause learning processes to fail, even when classical optimization remains stable. Consequently, quantum components in hybrid architectures must be carefully tailored to remain feasible on existing hardware.
+
+<img 
+  src="/images/qml/qml-challenges.png" 
+  alt="QML challenges on NISQ devices" 
+  width="700" 
+/>
+
+---
+
+## Core Research Direction
+
+The increasing accessibility of quantum devices through cloud platforms has accelerated QML research, leading to several prominent methodological directions:
+
+- **Quantum kernel methods**  
+- **Quantum neural networks (QNNs)** based on parameterized quantum circuits  
+- **Hybrid neural architectures** integrating quantum modules into classical pipelines  
+
+Practical considerations strongly influence architectural choices. In real-world applications, **hybrid neural architectures are often preferred** over purely quantum neural networks, since complex data typically require substantial classical preprocessing and feature extraction. Moreover, standalone QNN scalability remains constrained by current hardware, reinforcing the importance of hybrid architectures in near-term QML.
+
+---

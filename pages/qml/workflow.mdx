@@ -1,0 +1,84 @@
+---
+title: "Workflow and Core Components"
+description: "Preprocessing, encoding, ansatz, measurement, and optimization."
+---
+
+# Workflow and Core Components
+
+### Content
+
+- Preprocessing / Feature Extraction  
+- Encoding / Feature Map  
+- Quantum Circuit (Ansatz)  
+- Measurement  
+- Optimizer  
+
+---
+
+A QML pipeline consists of modular components that define how classical and quantum computations interact during training and inference. The composition of these components depends on the application, data characteristics, and hardware limitations.
+
+![QML pipeline components](/images/qml/qml-workflow.png)
+
+---
+
+## Preprocessing / Feature Extraction
+
+Data preprocessing transforms raw input into representations suitable for learning, including normalization, reshaping, and dimensionality reduction. These operations ensure numerical stability, consistent formats, and compatibility with downstream components.
+
+![Common preprocessing techniques](/images/qml/preprocessing.png)
+
+Feature extraction produces compact representations that capture task-relevant characteristics. In hybrid models, preprocessing may use techniques like PCA, while feature extraction is often performed by classical networks such as MLPs or CNNs.
+
+![Feature extraction methods](/images/qml/feature.png)
+
+Quantum circuits can also be applied for feature extraction (e.g., quanvolutional approaches), but hardware limitations often constrain scalability. In most current systems, classical feature extraction remains preferable.
+
+After preprocessing, information is transferred from the classical domain into quantum computation through encoding.
+
+![Example feature map + PQC](/images/qml/vqc.png)
+
+---
+
+## Encoding / Feature Map
+
+Quantum encoding maps classical features into quantum states using **data-dependent unitary operations** \( U(x) \). The encoding stage is the interface between classical representations and quantum processing.
+
+Common strategies include:
+
+- Basis encoding  
+- Angle/rotation encoding  
+- Amplitude encoding  
+- Entangling feature maps  
+
+Each strategy has trade-offs in circuit depth, qubits required, and noise sensitivity.
+
+---
+
+## Quantum Circuit (Ansatz)
+
+After encoding, the quantum state is transformed by a **parameterized quantum circuit (PQC)** V(θ), where θ are trainable parameters. The PQC defines model capacity through single-qubit and entangling gates.
+
+The PQC plays a role analogous to hidden layers in classical neural networks.
+
+
+---
+
+## Measurement
+
+Measurement converts the final quantum state into classical information, typically expressed as expectation values of observables. These values are returned to the classical domain for prediction and loss computation.
+
+---
+
+## Optimization
+
+Training is governed by a **classical optimization loop** that updates classical and quantum parameters based on hybrid computation outputs.
+
+![Hybrid optimization loop](/images/qml/cost.png)
+
+Gradient information can be computed using:
+
+- Parameter-shift rule  
+- Finite-difference approximation  
+- Hybrid autodiff frameworks  
+
+---

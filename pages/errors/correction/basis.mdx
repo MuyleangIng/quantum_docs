@@ -1,0 +1,68 @@
+---
+title: "Basis of QEC"
+description: "Why QEC seemed impossible and how syndrome measurement + error discretization make it possible."
+---
+
+# Basis of QEC
+
+In the early days of quantum theory, quantum error correction was thought to be impossible. Two main arguments supported this belief:
+
+---
+
+## 1) No-cloning theorem
+
+Errors in classical computers can be corrected by repeating data and applying a majority rule. However, this requires copying data.
+
+In quantum information theory, copying an unknown quantum state is forbidden by the **no-cloning theorem** (Wootters–Zurek).
+
+<img src="/images/errors/no-cloning.png" width="720" />
+
+---
+
+## 2) Finite precision control (continuous noise)
+
+Quantum information is inherently analog. This raises a difficult question: if noise consists of continuous small rotations, how can we ever correct “infinitesimal” errors with imperfect control?
+
+---
+
+## What QEC clarified
+
+These obstacles ended up clarifying what a practical QEC code must do.
+
+### (A) Learn errors without measuring logical information
+
+Because we cannot restore quantum data by copying the state and applying a classical majority rule, QEC must learn about errors **without copying or directly measuring** the data qubits.
+
+This becomes possible through **indirect measurement**, also called **syndrome measurement**.
+
+Instead of measuring the logical state stored in the data qubits, we couple the data to **ancilla (measurement) qubits** so that we measure only parity/stabilizer information. The outcomes are a classical bit string (called a **syndrome**) that indicates whether an error occurred and what kind of error pattern is consistent with the observation — while not revealing the encoded amplitudes themselves.
+
+<img src="/images/errors/syndrome-measurement.png" width="780" />
+
+> **Reference**: *Quantum Error Correction: An Introductory Guide* — Joschka Roffe (2019)
+
+### (B) Discretize continuous noise into effective Pauli errors
+
+Although physical noise is fundamentally continuous, QEC resolves this by **discretizing errors**.
+
+Repeated stabilizer measurements project the corrupted state onto stabilizer eigenspaces, making the effect of noise equivalent to a discrete set of effective error operators — most commonly from the Pauli set:
+
+\{X, Y, Z\}
+
+In this sense, QEC converts an analog error process into a digital inference-and-correction problem.
+
+<img src="/images/errors/discretization.png" width="780" />
+
+---
+
+## Stabilizer code framework
+
+These two principles naturally lead to the **stabilizer code framework**, which can be viewed as a quantum extension of classical linear codes and parity checks.
+
+Most practical QEC codes such as:
+
+- CSS codes
+- Surface codes
+- Color codes
+
+are designed around extracting syndromes using stabilizer/parity checks (with ancillas) and decoding the digitized syndrome information to infer and apply corrections.

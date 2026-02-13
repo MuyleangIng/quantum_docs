@@ -1,0 +1,40 @@
+---
+title: "Quantum Error Correction"
+description: "Protect logical quantum information using encoding, syndrome measurement, decoding, and correction."
+---
+
+# Quantum Error Correction
+
+Quantum error correction (QEC) is a method for preserving the **logical outcome** of a computation even when physical errors occur.
+
+The key idea is to:
+
+- encode **one logical qubit** into **many physical qubits**
+- measure **syndromes** (error information) using ancillas without destroying the logical state
+- use a **decoder** to infer the most likely error pattern
+- apply a **correction** that cancels the error’s effect
+
+QEC is essential for **fault-tolerant quantum computing (FTQC)**, where deep circuits would otherwise fail due to accumulated noise.
+
+---
+
+## What you will learn in this section
+
+- Why QEC is necessary for scalable quantum computing  
+- The two core principles: **syndrome measurement** and **error discretization**  
+- The full workflow: **encoding → syndrome extraction → decoding → correction**
+
+---
+
+## Pages
+
+- **Overview** → [`/errors/correction/overview`](/errors/correction/overview)  
+- **Basis of QEC** → [`/errors/correction/basis`](/errors/correction/basis)  
+- **Workflow of QEC Code** → [`/errors/correction/workflow`](/errors/correction/workflow)
+
+---
+
+## References
+
+- [Basis of QEC](https://www.notion.so/Basis-of-QEC-2fcca8260b24801bb305cd7cfb41fdc2?pvs=21)
+- [Workflow of QEC code](https://www.notion.so/Workflow-of-QEC-code-2fcca8260b24802384dac831b86a611d?pvs=21)

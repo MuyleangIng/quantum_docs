@@ -1,0 +1,116 @@
+---
+title: "Deutsch–Jozsa Algorithm"
+description: "Decide whether a function is constant or balanced using interference."
+---
+
+# The Deutsch–Jozsa Algorithm
+
+## Content Summary
+
+Deutsch–Jozsa is an early quantum algorithm that demonstrates an exponential separation (in the oracle-query model) between quantum and classical approaches. It decides whether a hidden function is **constant** or **balanced** using **one** oracle call (for a promised input class).
+
+## The “What” & “Why”
+
+### What it is
+- An algorithm that queries an **oracle** (a black-box function) $f(x)$.
+
+### Why we use it
+- To demonstrate **quantum parallelism** + **interference**
+- Classically, you must query multiple inputs to be certain
+- Quantumly, you can decide in **one** query for this promise problem
+
+## Study Case: The “Hidden Switch”
+
+You have a hidden wiring inside a box. You can flip a switch input $x \in \{0,1\}$ and observe output $f(x)$.
+
+### Constant
+- The light is always OFF (0), **or** always ON (1)
+
+### Balanced
+- The light follows the switch (0→0, 1→1), **or** it is inverted (0→1, 1→0)
+
+**Task:** Decide whether the wiring is **constant** or **balanced**.
+
+Deutsch–Jozsa solves this by querying once using **interference**.
+
+## Algorithm Flow (Student Understanding)
+
+1. Prepare input qubits in superposition
+2. Prepare helper qubit in $|1\rangle$, then apply $H$ (phase kickback)
+3. Apply oracle $U_f$
+4. Apply $H$ again on the input register (interference)
+5. Measure the input register
+
+### Decision rule
+- If measured result is **all zeros** → **Constant**
+- Otherwise → **Balanced**
+
+## Practical Testing (Qiskit Code)
+
+```python
+from qiskit import QuantumCircuit
+from qiskit.primitives import StatevectorSampler
+
+def get_counts(pub_result):
+    data = pub_result.data
+    if isinstance(data, dict) and "meas" in data:
+        return data["meas"].get_counts()
+    if hasattr(data, "meas"):
+        return data.meas.get_counts()
+    return {"ERROR": "No 'meas' found in result.data"}
+
+# 1) SETUP
+n = 3  # input qubits
+qc = QuantumCircuit(n + 1, n)
+
+# Helper qubit = |1>, then H for phase kickback
+qc.x(n)
+qc.h(range(n + 1))
+
+# 2) ORACLE (Balanced example)
+# f(x)=x0 XOR x1 XOR x2
+qc.barrier()
+qc.cx(0, n)
+qc.cx(1, n)
+qc.cx(2, n)
+qc.barrier()
+
+# 3) INTERFERENCE & MEASURE
+qc.h(range(n))
+qc.measure(range(n), range(n))
+
+# 4) RUN
+sampler = StatevectorSampler()
+job = sampler.run([qc], shots=1)
+pub_result = job.result()[0]
+print("Result:", get_counts(pub_result))
+
+Result Explanation
+
+If you see:
+
+000 → Constant
+
+anything else (often 111 for this oracle) → Balanced
+
+Why:
+
+Constant functions produce constructive interference at 000
+
+Balanced functions cancel amplitude at 000 and shift probability elsewhere
+
+Student Practice
+
+Make it constant:
+
+Comment out the CNOT oracle lines
+
+Run again
+
+Confirm output becomes 000
+
+Try a different balanced oracle:
+
+Keep only qc.cx(0, n)
+
+Run and observe a non-zero result pattern

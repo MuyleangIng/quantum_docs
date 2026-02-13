@@ -1,0 +1,121 @@
+---
+title: "Quantum Gates"
+description: "Introduction to quantum gates: single-qubit, multi-qubit, phase, and rotation gates."
+---
+
+# Quantum Gates
+
+## Quantum Gates
+
+In the previous section, we learned how to **read a quantum circuit**, how qubits are represented as wires and where measurements occur. We also saw that symbols placed on qubit wires represent **operations**. These operations are called **quantum gates**.
+
+Quantum gates are the fundamental building blocks of quantum circuits. They define **how qubits are manipulated** during a quantum computation.
+
+## What Is a Quantum Gate?
+
+A **quantum gate** is an operation that changes the state of a qubit (or multiple qubits). In a circuit diagram, a quantum gate is shown as a symbol placed on a qubit wire.
+
+- Quantum gates **act on qubits**
+- They modify how a qubit behaves over time
+- They are applied in a specific order as the circuit progresses
+
+For now, it is enough to think of a quantum gate as a **rule that transforms a qubit’s state**.
+
+## Quantum Gates vs Classical Logic Gates
+
+In classical computing, logic gates (such as `AND`, `OR`, and `NOT`) operate on bits that are always either 0 or 1. Quantum gates, however, operate on **qubits**, which may exist in superposition.
+
+## Single-Qubit and Multi-Qubit Gates
+
+Quantum gates can act on different numbers of qubits.
+
+---
+
+## Single-Qubit Gates (X, H, Z)
+
+These gates act on one qubit line. We will assume our qubit always starts in the state $|0⟩$.
+
+These gates are used to:
+
+- Flip a qubit’s state
+- Create superposition
+- Change the phase of a qubit
+
+> **Image placeholder:** Bloch sphere for $|0⟩$
+
+> **Image placeholder:** Apply X gate
+
+> **Image placeholder:** Bloch sphere for $|1⟩$
+
+### X Gate (Quantum NOT)
+
+When we apply the **X gate** (quantum NOT gate), it flips the state of a qubit:
+
+- If the qubit is in state $|0⟩$, X changes it to $|1⟩$
+- If the qubit is in state $|1⟩$, X changes it to $|0⟩$
+
+This behavior is similar to the NOT operation in classical computing.
+
+### H Gate (Hadamard)
+
+The **H (Hadamard) gate** is used to create **superposition**. When applied to a qubit:
+
+- A qubit starting in $|0⟩$ becomes an equal combination of $|0⟩$ and $|1⟩$
+- This means the qubit has a probability of being measured as either state
+
+The Hadamard gate is essential in many quantum algorithms because it allows quantum computers to explore multiple possibilities at the same time.
+
+### Z Gate (Phase Flip)
+
+The **Z gate** does not change whether a qubit is $|0⟩$ or $|1⟩$ when measured. Instead, it changes the **phase** of the $|1⟩$ state.
+
+Phase changes are not directly observable through measurement, but they play a crucial role in quantum interference and algorithm performance.
+
+Together, X, H, and Z gates allow us to flip states, create superpositions, and control phase, forming the foundation of single-qubit operations.
+
+---
+
+## Multi-Qubit Gates (CNOT, SWAP) (draft)
+
+Multi-qubit gates act on **two or more qubits at the same time** and allow qubits to interact with each other. These interactions are what make **entanglement** possible.
+
+### CNOT (Controlled-NOT)
+
+The **CNOT (Controlled-NOT) gate** involves two qubits:
+
+- a **control qubit**
+- a **target qubit**
+
+The rule is simple:
+
+- If the control qubit is $|1⟩$, the target qubit is flipped
+- If the control qubit is $|0⟩$, the target qubit remains unchanged
+
+When the control qubit is in a superposition, the CNOT gate can create **entangled states**, where the states of the two qubits become correlated.
+
+### SWAP
+
+The **SWAP gate** exchanges the states of two qubits:
+
+- The state of the first qubit is swapped with the state of the second qubit
+
+The SWAP gate is useful when qubits are physically separated on hardware and need to exchange information within a quantum circuit.
+
+Multi-qubit gates are essential for building meaningful quantum circuits, as they enable information sharing and entanglement between qubits.
+
+---
+
+## Phase and Rotation Gates (draft)
+
+Phase and rotation gates provide **fine-grained control** over a qubit’s state. Instead of simply flipping or creating superposition, these gates rotate the qubit by a specific angle.
+
+Rotation gates adjust the qubit’s state around different axes of the Bloch sphere using a chosen angle $\theta$. This allows precise control over:
+
+- the probability of measurement outcomes
+- the phase relationships between quantum states
+
+Phase gates modify the phase of a qubit without changing its measurement probabilities directly. These phase adjustments are crucial for controlling interference effects in quantum algorithms.
+
+Such gates are especially important in advanced algorithms like **Shor’s algorithm** and **Grover’s algorithm**, where small phase differences determine whether the final result is amplified or canceled out.
+
+In practice, phase and rotation gates allow quantum circuits to be tuned with high precision, enabling complex quantum computations that go beyond basic gate operations.

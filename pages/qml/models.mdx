@@ -1,0 +1,56 @@
+---
+title: "Hybrid Quantum–Classical Models"
+description: "Kernel methods, QNNs, and hybrid neural architectures."
+---
+
+# Hybrid Quantum–Classical Models
+
+### Content
+
+- Quantum Kernel Methods  
+- Quantum Neural Networks (QNN)  
+- Hybrid Neural Architectures  
+
+---
+
+Hybrid quantum–classical models are the predominant paradigm in QML research. They share a common hybrid structure where quantum computation is embedded within an otherwise classical learning pipeline.
+
+---
+
+## Quantum Kernel Methods
+
+Quantum kernel methods use quantum circuits to define kernel functions (similarity measures) between data points. Classical optimization remains unchanged, while feature mapping and similarity evaluation are performed by the quantum component.
+
+![Kernel feature mapping](/images/qml/kernel-mapping.png)
+
+---
+
+## Quantum Neural Networks (QNN)
+
+QNNs use a **parameterized quantum circuit (PQC)** as the trainable model, consisting of:
+
+1. Encoding \( U(x) \)  
+2. Variational circuit \( V(\theta) \)  
+3. Measurement  
+
+![QNN block diagram](/images/qml/qnn.png)
+
+Practical limitations include hardware noise, circuit depth constraints, and scalability issues for real-world high-dimensional data.
+
+---
+
+## Hybrid Neural Architectures
+
+Hybrid neural architectures integrate classical neural networks with quantum modules in an end-to-end pipeline.
+
+![Hybrid neural architecture diagram](/images/qml/ds.png)
+
+A typical hybrid design:
+
+- Classical layers perform preprocessing, feature extraction, and dimensionality reduction  
+- A quantum module applies feature mapping, PQC transformation, and measurement  
+- Post-quantum classical layers perform final prediction (classification/regression)
+
+This structure is especially suitable for near-term quantum hardware.
+
+---

@@ -1,0 +1,99 @@
+---
+title: "Grover’s Algorithm"
+description: "Search an unstructured space with quadratic speedup via amplitude amplification."
+---
+
+# Grover’s Algorithm
+
+## Content Summary
+
+Grover’s algorithm searches an unstructured list faster than any classical algorithm in the black-box model, achieving a **quadratic speedup**.
+
+## The “What” & “Why”
+
+### What it is
+- A probability amplification method that increases the chance of measuring the **marked** solution state
+
+### Why we use it
+- Quadratic speedup: $O(\sqrt{N})$ oracle queries instead of $O(N)$
+
+## Study Case: The “Winning Ticket”
+
+You have 4 hidden cards: $\{00, 01, 10, 11\}$. Only one is the winner (say `11`).
+
+- Classical: average ~2 tries
+- Grover: 1 iteration can make the winner appear with very high probability (for $N=4$, it becomes essentially perfect)
+
+## Algorithm Flow (Student Understanding)
+
+1. Put all states into superposition
+2. Oracle marks the winner by flipping its phase
+3. Diffuser amplifies the marked state amplitude
+4. Measure (you should get the winner)
+
+## Practical Testing (Qiskit Code): Find $|11\rangle$ in 2 qubits
+
+```python
+from qiskit import QuantumCircuit
+from qiskit.primitives import StatevectorSampler
+
+def get_counts(pub_result):
+    data = pub_result.data
+    if isinstance(data, dict) and "meas" in data:
+        return data["meas"].get_counts()
+    if hasattr(data, "meas"):
+        return data.meas.get_counts()
+    return {"ERROR": "No 'meas' found in result.data"}
+
+qc = QuantumCircuit(2, 2)
+
+# 1) Superposition
+qc.h([0, 1])
+
+# 2) Oracle: mark |11> (phase flip on |11>)
+qc.cz(0, 1)
+
+# 3) Diffuser (standard 2-qubit diffuser)
+qc.h([0, 1])
+qc.x([0, 1])
+qc.h(1)
+qc.cx(0, 1)
+qc.h(1)
+qc.x([0, 1])
+qc.h([0, 1])
+
+# 4) Measure
+qc.measure([0, 1], [0, 1])
+
+sampler = StatevectorSampler()
+job = sampler.run([qc], shots=1024)
+pub_result = job.result()[0]
+print("Search Results:", get_counts(pub_result))
+
+Result Explanation
+
+Expected: counts concentrated on:
+
+11
+
+Interpretation:
+
+Grover amplified the probability of the winning state without checking each state one-by-one.
+
+Student Practice
+
+Change the winner from 11 to 10:
+
+Apply X to the qubit you want to flip before the oracle
+
+Apply CZ
+
+Undo the X after CZ
+
+Run and confirm the output shifts toward 10
+
+Remove the diffuser:
+
+Keep only superposition + oracle
+
+Compare the distribution (winner will not dominate strongly)
