@@ -3,7 +3,7 @@ const themeConfig = {
   //   Change name of navbar of that one
   logo: "Documents",
   project: {
-    link: "https://github.com/Cloudinator",
+    link: "https://github.com/QCL-PKNU-GROUP",
   },
   docsRepositoryBase: "https://github.com/your-repo/tree/main/pages",
   footer: false,
